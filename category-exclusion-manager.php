@@ -18,8 +18,7 @@ defined('ABSPATH') || exit;
 
 final class Plugin
 {
-    /** @var string */
-    private $option_name = 'category_exclusion_manager_options';
+    const OPTION_NAME = 'category_exclusion_manager_options';
 
     public function __construct()
     {
@@ -32,9 +31,9 @@ final class Plugin
 
     public function activate()
     {
-        if (get_option($this->option_name)) return;
+        if (get_option(self::OPTION_NAME)) return;
 
-        add_option($this->option_name, [
+        add_option(self::OPTION_NAME, [
             'exclude_home'     => [],
             'exclude_feed'     => [],
             'exclude_archives' => []
@@ -43,7 +42,7 @@ final class Plugin
 
     public function deactivate()
     {
-        delete_option($this->option_name);
+        delete_option(self::OPTION_NAME);
     }
 
     public function add_admin_menu_page()
@@ -53,14 +52,14 @@ final class Plugin
             'Category Exclusion',
             'manage_options',
             'category-exclusion-manager',
-            new OptionsPage($this->option_name)
+            new OptionsPage(self::OPTION_NAME)
         );
     }
 
     public function exclude_categories($query)
     {
         if (! $query->is_admin() && $query->is_main_query()) {
-            $options = get_option($this->option_name, []);
+            $options = get_option(self::OPTION_NAME, []);
 
             if ($query->is_home() && ! empty($options['exclude_home'])) {
                 $query->set('category__not_in', $options['exclude_home']);

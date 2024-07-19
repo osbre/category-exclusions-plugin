@@ -8,7 +8,6 @@
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: category-exclusion-manager
- * Domain Path: /languages
  * Requires at least: 5.0
  * Requires PHP: 7.2
  */
@@ -35,7 +34,7 @@ final class Plugin
         if (get_option($this->option_name)) return;
 
         add_option($this->option_name, [
-            'exclude_main'     => [],
+            'exclude_home'     => [],
             'exclude_feed'     => [],
             'exclude_archives' => []
         ]);
@@ -62,8 +61,8 @@ final class Plugin
         if (! $query->is_admin() && $query->is_main_query()) {
             $options = get_option($this->option_name, []);
 
-            if ($query->is_home() && ! empty($options['exclude_main'])) {
-                $query->set('category__not_in', $options['exclude_main']);
+            if ($query->is_home() && ! empty($options['exclude_home'])) {
+                $query->set('category__not_in', $options['exclude_home']);
             }
 
             if ($query->is_feed() && ! empty($options['exclude_feed'])) {
@@ -110,7 +109,7 @@ final class OptionsPage
     private function add_fields(): void
     {
         foreach ([
-            'exclude_main'     => 'Exclude from Main Page',
+            'exclude_home'     => 'Exclude from Home Page',
             'exclude_feed'     => 'Exclude from Feeds',
             'exclude_archives' => 'Exclude from Archives'
         ] as $key => $label) {
@@ -151,7 +150,7 @@ final class OptionsPage
     public function sanitize_options($input): array
     {
         $sanitized_input = [];
-        $valid_options = ['exclude_main', 'exclude_feed', 'exclude_archives'];
+        $valid_options = ['exclude_home', 'exclude_feed', 'exclude_archives'];
 
         foreach ($valid_options as $option) {
             $sanitized_input[$option] = isset($input[$option]) ? array_map('intval', $input[$option]) : [];

@@ -12,7 +12,7 @@ Easily manage category exclusions for your WordPress site's front page, feeds, a
 
 == Description ==
 
-Category Exclusion Manager allows you to easily exclude specific categories from your main page, feeds, and archives.
+Category Exclusion Manager allows you to easily exclude specific categories from your home page, feeds, and archives.
 This plugin is perfect for content managers who want more control over how their categories are displayed across their
 WordPress site.
 

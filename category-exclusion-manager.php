@@ -172,6 +172,16 @@ final class OptionsPage
                 submit_button();
                 ?>
             </form>
+            <div class="notice notice-info inline">
+                <p>
+                    <strong><?php esc_html_e('Note:', 'category-exclusion-manager'); ?></strong>
+                    <?php esc_html_e('If your theme uses Query Loop blocks, enable "Inherit query from template" in block settings to apply these exclusions.', 'category-exclusion-manager'); ?>
+                    <a href="https://wordpress.org/documentation/article/query-loop-block/#inherit-query-from-template"
+                       target="_blank">
+                        <?php esc_html_e('Learn more about Query Loop blocks', 'category-exclusion-manager'); ?>
+                    </a>
+                </p>
+            </div>
         </div>
         <?php
     }

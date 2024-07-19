@@ -25,6 +25,7 @@ final class Plugin
     {
         add_action('admin_menu', [$this, 'add_admin_menu_page']);
         add_filter('pre_get_posts', [$this, 'exclude_categories']);
+        add_filter("plugin_action_links_" . plugin_basename(__FILE__), [$this, 'add_settings_link']);
         register_activation_hook(__FILE__, [$this, 'activate']);
         register_deactivation_hook(__FILE__, [$this, 'deactivate']);
     }
@@ -75,6 +76,13 @@ final class Plugin
         }
 
         return $query;
+    }
+
+    public function add_settings_link($links): array
+    {
+        $link = '<a href="options-general.php?page=category-exclusion-manager">' . __('Settings', 'category-exclusion-manager') . '</a>';
+
+        return [$link] + $links;
     }
 }
 

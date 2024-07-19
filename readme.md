@@ -27,6 +27,10 @@ WordPress site.
 
 Yes, you can select multiple categories to exclude from each area of your site.
 
+= Will this plugin slow down my website? =
+
+No, Category Exclusion Manager is designed to be lightweight and efficient.
+
 == Changelog ==
 
 = 1.0.0 =

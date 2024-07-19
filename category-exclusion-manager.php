@@ -148,7 +148,7 @@ final class OptionsPage
                 '<label><input type="checkbox" name="%1$s[%2$s][]" value="%3$d"%4$s> %5$s</label><br>',
                 esc_attr($this->option_name),
                 esc_attr($args['option']),
-                $category->term_id,
+                esc_attr($category->term_id),
                 checked(in_array($category->term_id, $selected), true, false),
                 esc_html($category->name)
             );

@@ -1,6 +1,6 @@
 === Category Exclusion Manager ===
 Contributors: ostapbrehin
-Tags: categories, exclusion, content management
+Tags: categories, exclusion, content management, lightweight
 Requires at least: 5.0
 Tested up to: 6.6
 Stable tag: 1.0.0

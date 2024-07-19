@@ -1,24 +1,24 @@
 <?php
 /**
- * Plugin Name: Category Exclusion Manager
- * Description: Easily manage category exclusions for your site's front page, feeds, and archives.
+ * Plugin Name: Category Exclusions
+ * Description: Exclude posts from certain categories from your site's front page, feeds, or archives.
  * Version: 1.0.0
  * Author: Ostap Brehin
  * Author URI: https://ostapbrehin.com
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: category-exclusion-manager
+ * Text Domain: category-exclusions
  * Requires at least: 5.0
  * Requires PHP: 7.2
  */
 
-namespace CategoryExclusionManager;
+namespace CategoryExclusions;
 
 defined('ABSPATH') || exit;
 
 final class Plugin
 {
-    const OPTION_NAME = 'category_exclusion_manager_options';
+    const OPTION_NAME = 'category_exclusions_options';
 
     public function __construct()
     {
@@ -48,10 +48,10 @@ final class Plugin
     public function add_admin_menu_page()
     {
         add_options_page(
-            'Category Exclusion Manager',
-            'Category Exclusion',
+            'Category Exclusions',
+            'Category Exclusions',
             'manage_options',
-            'category-exclusion-manager',
+            'category-exclusions',
             new OptionsPage(self::OPTION_NAME)
         );
     }
@@ -79,7 +79,7 @@ final class Plugin
 
     public function add_settings_link($links): array
     {
-        $link = '<a href="options-general.php?page=category-exclusion-manager">' . __('Settings', 'category-exclusion-manager') . '</a>';
+        $link = '<a href="options-general.php?page=category-exclusions">' . __('Settings', 'category-exclusions') . '</a>';
 
         return [$link] + $links;
     }
@@ -105,9 +105,9 @@ final class OptionsPage
 
         add_settings_section(
             'category_exclusion_manager_section',
-            'Category Exclusion Settings',
-            [$this, 'section_callback'],
-            'category-exclusion-manager'
+            null,
+            '__return_null',
+            'category-exclusions'
         );
 
         $this->add_fields();
@@ -124,16 +124,11 @@ final class OptionsPage
                 $key,
                 $label,
                 [$this, 'multi_checkbox_callback'],
-                'category-exclusion-manager',
+                'category-exclusions',
                 'category_exclusion_manager_section',
                 ['label_for' => $key, 'option' => $key]
             );
         }
-    }
-
-    public function section_callback($args): void
-    {
-        echo '<p>' . esc_html__('Select categories to exclude from different areas of your site.', 'category-exclusion-manager') . '</p>';
     }
 
     public function multi_checkbox_callback($args): void
@@ -174,17 +169,17 @@ final class OptionsPage
             <form action="options.php" method="post">
                 <?php
                 settings_fields('category_exclusion_manager_group');
-                do_settings_sections('category-exclusion-manager');
+                do_settings_sections('category-exclusions');
                 submit_button();
                 ?>
             </form>
             <div class="notice notice-info inline">
                 <p>
-                    <strong><?php esc_html_e('Note:', 'category-exclusion-manager'); ?></strong>
-                    <?php esc_html_e('If your theme uses Query Loop blocks, enable "Inherit query from template" in block settings to apply these exclusions.', 'category-exclusion-manager'); ?>
+                    <strong><?php esc_html_e('Note:', 'category-exclusions'); ?></strong>
+                    <?php esc_html_e('If your theme uses Query Loop blocks, enable "Inherit query from template" in block settings to apply these exclusions.', 'category-exclusions'); ?>
                     <a href="https://wordpress.org/documentation/article/query-loop-block/#inherit-query-from-template"
                        target="_blank">
-                        <?php esc_html_e('Learn more about Query Loop blocks', 'category-exclusion-manager'); ?>
+                        <?php esc_html_e('Learn more about Query Loop blocks', 'category-exclusions'); ?>
                     </a>
                 </p>
             </div>
